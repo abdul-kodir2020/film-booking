@@ -49,7 +49,7 @@ const filter = (array, critere) => {
         if(filtre === "<") return array.filter(el => el[propriete] < valeur)
         if(filtre === ">") return array.filter(el => el[propriete] > valeur)
         if(filtre === "!=") return array.filter(el => el[propriete] != valeur)
-        return array.filter(el => el[propriete] != valeur)
+        return array.filter(el => el[propriete] == valeur)
 
     }else{
         if ("contient est n_est_pas ne_contient_pas".split(" ").indexOf(filtre) === -1) return "Le filtre n'est pas valide"
@@ -62,4 +62,4 @@ const filter = (array, critere) => {
     }
 }
 
-console.log(filter(utilisateurs, "nom contient sophie"))
+console.log(filter(utilisateurs, "age = 18"))
