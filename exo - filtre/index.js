@@ -35,7 +35,7 @@ const utilisateurs = [
      - Pour les propriétés numeriques : >, <, =, !=
      - Pour les propriétés string : contient, est, n_est_pas, ne_contient_pas
 */
-const filter = (array, critere) => {
+const filterArray = (array, critere) => {
     if(array.length === 0) return array
 
     let [propriete, filtre, valeur] = critere.split(" ")
@@ -62,4 +62,4 @@ const filter = (array, critere) => {
     }
 }
 
-console.log(filter(utilisateurs, "age = 18"))
+console.log(filterArray(utilisateurs, "age = 18"))
