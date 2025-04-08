@@ -30,7 +30,9 @@ export class UsersService {
   }
 
   async findOne(id: number) {
-    return await this.prisma.user.findUnique({where: {id}});
+    const user = await this.prisma.user.findUnique({where: {id}});
+    if(!user ) throw new BadRequestException("Cet utilisateur n'existe pas")
+    return user
   }
 
   async update(id: number, updateUserDto: UpdateUserDto) {
