@@ -11,10 +11,10 @@ export class AuthService {
     async login(email: string, password: string): Promise<AuthEntity>{
 
         const user = await this.prisma.user.findUnique({where: {email: email}})
-        if(!user) throw new BadRequestException("Cet email n'existe pas")
+        if(!user) throw new BadRequestException("Email ou Mot de passe incorrecte !")
 
         const isPasswordValid = await bcrypt.compare(password, user.password);
-        if(!isPasswordValid) throw new UnauthorizedException('Mot de passe Incorrecte')
+        if(!isPasswordValid) throw new UnauthorizedException('Email ou Mot de passe incorrecte !')
 
         return {token: this.jwtService.sign({userId: user.id})}
     }

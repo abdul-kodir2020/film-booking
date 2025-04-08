@@ -12,7 +12,6 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
 
-
   @Get()
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
@@ -49,6 +48,8 @@ export class UsersController {
   @ApiBearerAuth()
   @ApiOkResponse({ type: UserEntity })
   async remove(@Param('id', ParseIntPipe) id: number) {
+    const user = await this.usersService.findOne(id)
+    if(!user) throw new BadRequestException("Cet utilisateur n'existe pas")
     return new UserEntity(await this.usersService.remove(id));
   }
 }
