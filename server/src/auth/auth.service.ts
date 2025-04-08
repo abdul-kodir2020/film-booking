@@ -2,6 +2,7 @@ import { BadRequestException, Injectable, UnauthorizedException } from '@nestjs/
 import { JwtService } from '@nestjs/jwt';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { AuthEntity } from './entity/auth.entity';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class AuthService {
@@ -12,8 +13,8 @@ export class AuthService {
         const user = await this.prisma.user.findUnique({where: {email: email}})
         if(!user) throw new BadRequestException("Cet email n'existe pas")
 
-        const isPassword = user.password === password
-        if(!isPassword) throw new UnauthorizedException('Mot de passe Incorrecte')
+        const isPasswordValid = await bcrypt.compare(password, user.password);
+        if(!isPasswordValid) throw new UnauthorizedException('Mot de passe Incorrecte')
 
         return {token: this.jwtService.sign({userId: user.id})}
     }
