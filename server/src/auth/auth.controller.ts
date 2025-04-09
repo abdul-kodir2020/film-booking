@@ -20,7 +20,7 @@ export class AuthController {
     schema: {
       type: 'object',
       properties: {
-        token: { $ref: getSchemaPath(AuthEntity) },
+        token: { type: "string" },
         message: { type: 'string' },
       },
     },
