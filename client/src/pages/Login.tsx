@@ -20,7 +20,7 @@ const Login = () => {
       const token = res.data.token;
       login(token);
       toast.success("Vous êtes connecté !")
-      navigate('/dashboard');
+      navigate('/home');
     } catch (err) {
         toast.error("Echec d'authentification")
     }

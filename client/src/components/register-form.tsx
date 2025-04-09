@@ -23,7 +23,7 @@ export function RegisterForm({ handleSubmit, email, setEmail, password, setPassw
       </div>
       <div className="grid gap-6">
         <div className="grid gap-3">
-          <Label htmlFor="name">Name</Label>
+          <Label htmlFor="name">Nom complet</Label>
           <Input id="name" type="text" placeholder="Jean Doe" value={name} onChange={e => setName(e.target.value)} required />
         </div>
         <div className="grid gap-3">
@@ -32,7 +32,7 @@ export function RegisterForm({ handleSubmit, email, setEmail, password, setPassw
         </div>
         <div className="grid gap-3">
           <div className="flex items-center">
-            <Label htmlFor="password">Password</Label>
+            <Label htmlFor="password">Mot de passe</Label>
             {/* <a
               href="#"
               className="ml-auto text-sm underline-offset-4 hover:underline"

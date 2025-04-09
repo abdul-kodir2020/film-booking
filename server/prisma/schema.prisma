@@ -14,10 +14,22 @@ datasource db {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
+  id        String   @id @default(uuid())
   email     String   @unique
   password  String
   name      String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  reservations Reservation[]
 }
+
+model Reservation {
+  id        String             @id @default(uuid())
+  userId    String
+  user      User               @relation(fields: [userId], references: [id])
+  movieId   Int                
+  date      DateTime
+  createdAt DateTime           @default(now())
+  updatedAt DateTime           @updatedAt
+}
+

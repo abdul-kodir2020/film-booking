@@ -6,7 +6,7 @@ export default function AuthRedirect() {
   const token = localStorage.getItem('token');
 
   if (!token) {
-    if (location.pathname === '/dashboard') return <Navigate to="/login" replace />;
+    if (location.pathname === '/home') return <Navigate to="/login" replace />;
     return null;
   }
 
@@ -16,19 +16,19 @@ export default function AuthRedirect() {
 
     if (!decoded.exp || decoded.exp < currentTime) {
       localStorage.removeItem('token');
-      if (location.pathname === '/dashboard') return <Navigate to="/login" replace />;
+      if (location.pathname === '/home') return <Navigate to="/login" replace />;
       return null;
     }
 
     // Si déjà connecté, on empêche l’accès à login/register
     if (location.pathname === '/login' || location.pathname === '/register') {
-      return <Navigate to="/dashboard" replace />;
+      return <Navigate to="/home" replace />;
     }
 
     return null;
   } catch {
     localStorage.removeItem('token');
-    if (location.pathname === '/dashboard') return <Navigate to="/login" replace />;
+    if (location.pathname === '/home') return <Navigate to="/login" replace />;
     return null;
   }
 }

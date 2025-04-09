@@ -6,9 +6,10 @@ import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { ConfigModule } from '@nestjs/config';
 import { MoviesModule } from './movies/movies.module';
+import { ReservationModule } from './reservation/reservation.module';
 
 @Module({
-  imports: [PrismaModule, AuthModule, UsersModule, ConfigModule.forRoot(), MoviesModule],
+  imports: [PrismaModule, AuthModule, UsersModule, ConfigModule.forRoot(), MoviesModule, ReservationModule],
   controllers: [AppController],
   providers: [AppService],
 })

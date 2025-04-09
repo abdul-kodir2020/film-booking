@@ -9,13 +9,7 @@ export class UserEntity implements User {
     }
 
   @ApiProperty()
-  id: number;
-
-  @ApiProperty()
-  createdAt: Date;
-
-  @ApiProperty()
-  updatedAt: Date;
+  id: string;
 
   @ApiProperty()
   name: string;
@@ -25,4 +19,10 @@ export class UserEntity implements User {
 
   @Exclude()
   password: string;
+
+  @ApiProperty()
+  createdAt: Date;
+
+  @ApiProperty()
+  updatedAt: Date;
 }

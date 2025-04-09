@@ -26,30 +26,31 @@ export class UsersService {
   }
 
   findAll() {
-    return this.prisma.user.findMany();
+    return this.prisma.user.findMany({include: { reservations: true }});
   }
 
-  async findOne(id: number) {
-    const user = await this.prisma.user.findUnique({where: {id}});
+  async findOne(id: string) {
+    const user = await this.prisma.user.findUnique({where: {id}, include: { reservations: true },});
     if(!user ) throw new BadRequestException("Cet utilisateur n'existe pas")
     return user
   }
 
-  async update(id: number, updateUserDto: UpdateUserDto) {
-    if (updateUserDto.password) {
-      updateUserDto.password = await bcrypt.hash(
-        updateUserDto.password,
-        roundsOfHashing,
-      );
-    }
+  // async update(id: string, updateUserDto: UpdateUserDto) {
+  //   if (updateUserDto.password) {
+  //     updateUserDto.password = await bcrypt.hash(
+  //       updateUserDto.password,
+  //       roundsOfHashing,
+  //     );
+  //   }
     
-    return this.prisma.user.update({
-      where: {id: id},
-      data: updateUserDto
-    });
-  }
+  //   return this.prisma.user.update({
+  //     where: {id: id},
+  //     include: { reservations: true },
+  //     data: updateUserDto
+  //   });
+  // }
 
-  remove(id: number) {
-    return this.prisma.user.delete({where: {id}});
-  }
+  // remove(id: string) {
+  //   return this.prisma.user.delete({where: {id}, include: { reservations: true },});
+  // }
 }

@@ -16,9 +16,9 @@ export function LoginForm({ handleSubmit, email, setEmail, password, setPassword
   return (
     <form className={cn("flex flex-col gap-6")} onSubmit={handleSubmit}>
       <div className="flex flex-col items-center gap-2 text-center">
-        <h1 className="text-2xl font-bold">Login to your account</h1>
+        <h1 className="text-2xl font-bold">Connexion</h1>
         <p className="text-muted-foreground text-sm text-balance">
-          Enter your email below to login to your account
+          Entrez votre email et mot de passe en dessous
         </p>
       </div>
       <div className="grid gap-6">
@@ -28,7 +28,7 @@ export function LoginForm({ handleSubmit, email, setEmail, password, setPassword
         </div>
         <div className="grid gap-3">
           <div className="flex items-center">
-            <Label htmlFor="password">Password</Label>
+            <Label htmlFor="password">Mot de passe</Label>
             {/* <a
               href="#"
               className="ml-auto text-sm underline-offset-4 hover:underline"
@@ -39,7 +39,7 @@ export function LoginForm({ handleSubmit, email, setEmail, password, setPassword
           <Input id="password" type="password" value={password} onChange={e => setPassword(e.target.value)} required />
         </div>
         <Button type="submit" className="w-full cursor-pointer">
-          Login
+          Se connecter
         </Button>
         <div className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
           {/* <span className="bg-background text-muted-foreground relative z-10 px-2">
@@ -57,8 +57,8 @@ export function LoginForm({ handleSubmit, email, setEmail, password, setPassword
         </Button> */}
       </div>
       <div className="text-center text-sm">
-        Don&apos;t have an account?{" "}
-        <Link to={"/register"} className="underline underline-offset-4">Sign Up</Link>
+        Vous n'avez pas de compte ?{" "}
+        <Link to={"/register"} className="underline underline-offset-4">Inscrivez vous.</Link>
       </div>
     </form>
   )
