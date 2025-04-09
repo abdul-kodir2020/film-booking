@@ -145,3 +145,12 @@ page: numéro de la page
 - TMDB API
 - JWT
 - Swagger
+
+## 📚 Références
+
+- 🧬 [Prisma + NestJS: Build a REST API](https://www.prisma.io/blog/nestjs-prisma-rest-api-7D056s1BmOL0)
+- 📘 [Documentation officielle de NestJS](https://docs.nestjs.com/)
+- 🧾 [Documentation Prisma](https://www.prisma.io/docs)
+- 🎞️ [TMDB API Docs](https://developer.themoviedb.org/docs)
+- 🛡️ [JWT Authentication in NestJS](https://docs.nestjs.com/security/authentication)
+- 🧪 [Testing in NestJS](https://docs.nestjs.com/fundamentals/testing)
