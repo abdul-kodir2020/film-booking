@@ -1,98 +1,148 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# 🎬 Film Booking API
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+API REST construite avec **NestJS** permettant de :
+- Consulter les films disponibles (via [TMDB API](https://www.themoviedb.org/)),
+- Gérer l’inscription et la connexion utilisateur (JWT),
+- Réserver des films avec prévention des conflits d’horaires,
+- Accéder à ses propres réservations.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+Lien du swagger : http://localhost:3000/api/
 
-## Description
+---
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## 👤 Auteur
 
-## Project setup
+**Mounirou Abdul Kodir**  
+Développeur Fullstack & DevOps
 
-```bash
-$ npm install
-```
+---
 
-## Compile and run the project
+## ⚙️ Technologies utilisées
 
-```bash
-# development
-$ npm run start
+- [NestJS](https://nestjs.com/)
+- [Prisma ORM](https://www.prisma.io/)
+- [PostgreSQL](https://www.postgresql.org/)
+- [TMDB API](https://www.themoviedb.org/)
+- [Swagger](https://swagger.io/)
+- [JWT](https://jwt.io/)
 
-# watch mode
-$ npm run start:dev
+---
 
-# production mode
-$ npm run start:prod
-```
+## 🚀 Fonctionnalités
 
-## Run tests
+- Authentification (inscription / connexion via JWT)
+- Récupération des films populaires via TMDB
+- Système de réservation de films
+- Prévention de doublons de réservation sur la même plage horaire (2h avant/après)
+- Documentation Swagger disponible
+
+---
+
+## 📦 Installation
+
+### 1. Cloner le repo
 
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+git clone https://github.com/ton-user/film-booking-api.git
+cd film-booking-api
 ```
 
-## Deployment
-
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+### 2. Installer des dépendances
 
 ```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
+npm install
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+### 3. Créer un fichier .env
 
-## Resources
+```bash
+API_JETON=your_tmdb_api_key
+JWT_SECRET=your_jwt_secret
+DATABASE_URL=postgresql://USER:PASSWORD@localhost:5432/your_db_name
+```
 
-Check out a few resources that may come in handy when working with NestJS:
+### 4. Lancer les migrations
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+```bash
+npx prisma migrate dev --name init
+```
 
-## Support
+### 5. Lancer l'application
+```bash
+npm run start:dev
+```
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+## 🧪 Lancer les tests
 
-## Stay in touch
+```bash
+npm run test
+```
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+Pour lancer un seul test :
+```bash
+npm run test -- reservation.service.spec.ts
+```
 
-## License
+## 📮 Endpoints principaux
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+Tous les endpoints sont documentés dans Swagger :  
+📎 `http://localhost:3000/api`
+
+---
+
+### 🔐 Authentification
+
+| Méthode | Endpoint         | Description              |
+|---------|------------------|--------------------------|
+| `POST`  | `/auth/register` | Créer un nouveau compte |
+| `POST`  | `/auth/login`    | Se connecter et recevoir un JWT |
+
+---
+
+### 👤 Utilisateur connecté
+
+| Méthode | Endpoint | Description |
+|---------|----------|-------------|
+| `GET`   | `/users` | Récupère les informations de tous les utilisateurs |
+| `GET`   | `/users/me` | Récupère les informations de l'utilisateur connecté |
+| `GET`   | `/users/:id` | Récupère les informations d'un utilisateur'|
+
+> 🔒 Protégé par JWT
+
+---
+
+### 🎬 Films
+
+| Méthode | Endpoint             | Description                                                  |
+|---------|----------------------|--------------------------------------------------------------|
+| `GET`   | `/movies`       | Liste paginée des films populaires                          |
+|         |                      | `?page={page}&search={keyword}` (`search` est optionnel, par défaut "") |
+> 🔒 Protégé par JWT
+
+page: numéro de la page
+
+> ✅ Utilise l’API The Movie DB  
+> 📌 Le token TMDB est requis dans le `.env`
+
+---
+
+### 📆 Réservations
+
+| Méthode | Endpoint              | Description                                  |
+|---------|-----------------------|----------------------------------------------|
+| `POST`  | `/reservations`       | Créer une réservation                        |
+| `GET`   | `/reservations`  | Voir toutes les réservations du user connecté |
+| `Delete`   | `/reservations/:id`  | Annuler une réservation |
+
+> 🕓 Vérifie automatiquement qu’aucune réservation ne chevauche une autre dans les **2h avant ou après** le film choisi.  
+> 🔒 Protégé par JWT
+
+---
+
+## ⚙️ Technologies
+
+- NestJS
+- Prisma + PostgreSQL
+- TMDB API
+- JWT
+- Swagger
