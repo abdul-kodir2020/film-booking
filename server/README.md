@@ -115,8 +115,7 @@ Tous les endpoints sont documentés dans Swagger :
 
 | Méthode | Endpoint             | Description                                                  |
 |---------|----------------------|--------------------------------------------------------------|
-| `GET`   | `/movies`       | Liste paginée des films populaires                          |
-|         |                      | `?page={page}&search={keyword}` (`search` est optionnel, par défaut "") |
+| `GET`   | `/movies`            | Liste paginée des films populaires |
 > 🔒 Protégé par JWT
 
 page: numéro de la page
