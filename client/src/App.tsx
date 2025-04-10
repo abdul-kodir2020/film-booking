@@ -32,6 +32,7 @@ const App = () => {
               <Route path="decouvrir" element={<Decouvrir />} />
               <Route path="reservations" element={<Reservations />} />
             </Route>
+            <Route path="/" element={<Navigate to="/home" replace />} />
           </Routes>
         </BrowserRouter>
         <div>
