@@ -29,7 +29,7 @@ const FilmDialog = ({film} : {film: any}) => {
 
         try {
 
-            const promise = axios.post(`${apiUrl}/reservation`, { movieId: film.id, date: date }, {headers: {
+            const promise = axios.post(`${apiUrl}/reservation`, { movieId: film.id, date: date, movieName: film.title }, {headers: {
                 Authorization: `Bearer ${jwt}`,
             },});
 

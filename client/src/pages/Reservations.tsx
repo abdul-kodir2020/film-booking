@@ -33,6 +33,7 @@ function Reservations() {
                   Authorization: `Bearer ${jwt}`,
                 },
               });
+              console.log(res.data)
               setReservations(res.data);
             } catch (err) {
               console.error('Erreur lors de la récupération des films');
@@ -53,6 +54,7 @@ function Reservations() {
                 <TableHeader>
                     <TableRow>
                     <TableHead className="font-bold">Id du film</TableHead>
+                    <TableHead className="font-bold">Nom du film</TableHead>
                     <TableHead className="font-bold">Date de la séance</TableHead>
                     <TableHead className="font-bold">Réservé le</TableHead>
                     <TableHead className="text-right font-bold"></TableHead>
@@ -64,6 +66,7 @@ function Reservations() {
                         reservations.map((reservation: Reservation) => (
                             <TableRow key={reservation.id}>
                                 <TableCell className="font-medium">{reservation.id}</TableCell>
+                                <TableCell className="font-medium">{reservation.movieName}</TableCell>
                                 <TableCell>{formatDate((reservation.date))}</TableCell>
                                 <TableCell>{formatDate(reservation.createdAt)}</TableCell>
                                 <TableCell className="text-right">
