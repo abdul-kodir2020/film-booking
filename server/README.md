@@ -6,7 +6,7 @@ API REST construite avec **NestJS** permettant de :
 - Réserver des films avec prévention des conflits d’horaires,
 - Accéder à ses propres réservations.
 
-Lien du swagger : http://localhost:3000/api/
+Lien du swagger : {url}/api/
 
 ---
 
@@ -44,7 +44,7 @@ Développeur Fullstack & DevOps
 
 ```bash
 git clone https://github.com/ton-user/film-booking-api.git
-cd film-booking-api
+cd film-booking-api/server
 ```
 
 ### 2. Installer des dépendances
@@ -86,7 +86,7 @@ npm run test -- reservation.service.spec.ts
 ## 📮 Endpoints principaux
 
 Tous les endpoints sont documentés dans Swagger :  
-📎 `http://localhost:3000/api`
+📎 `{url}/api`
 
 ---
 

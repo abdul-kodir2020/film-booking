@@ -1,12 +1,10 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
-import { UsersService } from 'src/users/users.service';
-import { JwtAuthGuard } from './jwt-auth.guard';
-import { UserEntity } from 'src/users/entities/user.entity';
-import { CreateUserDto } from 'src/users/dto/create-user.dto';
+import { UsersService } from '../users/users.service';
+import { UserEntity } from '../users/entities/user.entity';
+import { CreateUserDto } from '../users/dto/create-user.dto';
 import { LoginDto } from './dto/login.dto';
-import { AuthEntity } from './entity/auth.entity';
 import { BadRequestException } from '@nestjs/common';
 
 describe('AuthController', () => {
@@ -39,14 +37,18 @@ describe('AuthController', () => {
   });
 
   describe('login', () => {
-    it('should return an AuthEntity when login is successful', async () => {
+    it('should return a token and message when login is successful', async () => {
       const loginDto: LoginDto = { email: 'test@example.com', password: 'password' };
-      const authEntity = new AuthEntity();
-      jest.spyOn(authService, 'login').mockResolvedValue(authEntity);
+      const mockToken = 'mocked.token.jwt';
+
+      jest.spyOn(authService, 'login').mockResolvedValue({ token: mockToken });
 
       const result = await authController.login(loginDto);
 
-      expect(result).toBe(authEntity);
+      expect(result).toEqual({
+        token: mockToken,
+        message: 'Connexion réussie',
+      });
       expect(authService.login).toHaveBeenCalledWith(loginDto.email, loginDto.password);
     });
 
@@ -54,28 +56,36 @@ describe('AuthController', () => {
       const loginDto: LoginDto = { email: 'test@example.com', password: 'wrongpassword' };
       jest.spyOn(authService, 'login').mockRejectedValue(new BadRequestException('Invalid credentials'));
 
-      try {
-        await authController.login(loginDto);
-      } catch (e) {
-        expect(e.response.message).toBe('Invalid credentials');
-        expect(e.status).toBe(400);
-      }
+      await expect(authController.login(loginDto)).rejects.toThrow(BadRequestException);
     });
   });
 
   describe('register', () => {
-    it('should return a UserEntity when registration is successful', async () => {
-      const createUserDto: CreateUserDto = { email: 'newuser@example.com', password: 'password', name: 'New User' };
-      const userEntity = new UserEntity({
+    it('should return a user and message when registration is successful', async () => {
+      const createUserDto: CreateUserDto = {
         email: 'newuser@example.com',
         password: 'password',
         name: 'New User',
-      });
-      jest.spyOn(usersService, 'create').mockResolvedValue(userEntity);
-  
+      };
+
+      const mockUser = {
+        id: 'user-id',
+        email: createUserDto.email,
+        name: createUserDto.name,
+        password: 'hashedpassword',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      };
+
+      jest.spyOn(usersService, 'create').mockResolvedValue(mockUser);
+
       const result = await authController.register(createUserDto);
-  
-      expect(result).toBeInstanceOf(UserEntity);
+
+      expect(result).toEqual({
+        user: new UserEntity(mockUser),
+        message: 'Inscription reussie',
+      });
+
       expect(usersService.create).toHaveBeenCalledWith(createUserDto);
     });
   });

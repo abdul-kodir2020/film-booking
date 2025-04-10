@@ -2,7 +2,7 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Req } fro
 import { ReservationService } from './reservation.service';
 import { CreateReservationDto } from './dto/create-reservation.dto';
 import { UpdateReservationDto } from './dto/update-reservation.dto';
-import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { ApiBearerAuth, ApiCreatedResponse, ApiOkResponse, getSchemaPath } from '@nestjs/swagger';
 import { Request } from 'express';
 import { ReservationEntity } from './entities/reservation.entity';
@@ -41,16 +41,6 @@ export class ReservationController {
     const reservations = await this.reservationService.findAll(user.id)
     return reservations.map(reservation => new ReservationEntity(reservation));
   }
-
-  // @Get(':id')
-  // findOne(@Param('id') id: string) {
-  //   return this.reservationService.findOne(+id);
-  // }
-
-  // @Patch(':id')
-  // update(@Param('id') id: string, @Body() updateReservationDto: UpdateReservationDto) {
-  //   return this.reservationService.update(+id, updateReservationDto);
-  // }
 
   @Delete(':id')
   @UseGuards(JwtAuthGuard)

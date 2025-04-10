@@ -4,10 +4,9 @@ import { ApiBearerAuth, ApiCreatedResponse, ApiOkResponse, ApiResponse, ApiTags,
 import { AuthEntity } from './entity/auth.entity';
 import { LoginDto } from './dto/login.dto';
 import { JwtAuthGuard } from './jwt-auth.guard';
-import { UserEntity } from 'src/users/entities/user.entity';
-import { CreateUserDto } from 'src/users/dto/create-user.dto';
-import { UsersService } from 'src/users/users.service';
-import { cp } from 'fs';
+import { UserEntity } from '../users/entities/user.entity';
+import { CreateUserDto } from '../users/dto/create-user.dto';
+import { UsersService } from '../users/users.service';
 
 @Controller('auth')
 @ApiTags('auth')

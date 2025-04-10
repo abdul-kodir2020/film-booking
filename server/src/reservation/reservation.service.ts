@@ -1,6 +1,6 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { CreateReservationDto } from './dto/create-reservation.dto';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaService } from '../prisma/prisma.service';
 
 @Injectable()
 export class ReservationService {
@@ -43,13 +43,6 @@ export class ReservationService {
     return this.prisma.reservation.findMany({where: {userId: id}})
   }
 
-  // findOne(id: number) {
-  //   return `This action returns a #${id} reservation`;
-  // }
-
-  // update(id: number, updateReservationDto: UpdateReservationDto) {
-  //   return `This action updates a #${id} reservation`;
-  // }
 
   remove(id: string, userId: string) {
     const reservation = this.prisma.reservation.findUnique({where: {id: id, userId: userId}})
