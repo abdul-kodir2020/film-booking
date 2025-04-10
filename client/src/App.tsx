@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Login from './pages/Login';
 import { AuthProvider } from './contexts/AuthContext';
 import ProtectedRoute from './components/ProtectedRoutes';
@@ -7,6 +7,8 @@ import { Toaster } from 'sonner'
 import Home from './pages/Home';
 import { ThemeProvider } from "@/components/theme-provider"
 import AuthRedirect from './components/AuthRedirect';
+import Decouvrir from './pages/Decouvrir';
+import Reservations from './pages/Reservations';
 
 const App = () => {
   return (
@@ -24,7 +26,12 @@ const App = () => {
                   <Home />
                 </ProtectedRoute>
               }
-            />
+            >
+              {/* Redirection par défaut vers /home/decouvrir */}
+              <Route index element={<Navigate to="decouvrir" replace />} />
+              <Route path="decouvrir" element={<Decouvrir />} />
+              <Route path="reservations" element={<Reservations />} />
+            </Route>
           </Routes>
         </BrowserRouter>
         <div>

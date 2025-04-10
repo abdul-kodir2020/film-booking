@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/sidebar"
 
 import { useAuth } from '../contexts/AuthContext';
+import { useLocation } from "react-router-dom"
 
 
 // This is sample data.
@@ -26,6 +27,7 @@ import { useAuth } from '../contexts/AuthContext';
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { user } = useAuth();
+  const location = useLocation();
 
   const data = {
     user: {
@@ -36,15 +38,16 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     navMain: [
       {
         title: "Découvrir",
-        url: "#",
+        url: "decouvrir",
         icon: Home,
-        isActive: true,
+        isActive: location.pathname === '/home/decouvrir',
       },
       {
         title: "Mes réservations",
-        url: "#",
+        url: "reservations",
         icon: LayoutList,
         badge: "10",
+        isActive: location.pathname === '/home/reservations'
       },
     ],
   }
