@@ -11,11 +11,13 @@ export class MoviesController {
   @Get('')
   @ApiQuery({ name: 'page', required: false, type: Number, example: 1 })
   @ApiQuery({ name: 'search_keyword', required: false, type: String, example: "Fast & furious" })
+  @ApiQuery({ name: 'sortBy', required: false, enum: ['asc', 'desc'], example: 'asc' })
   @ApiOkResponse({ type: PaginatedMoviesResponse })
   findAll(
     @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number,
     @Query('search_keyword', new DefaultValuePipe("")) search_keyword: String,
+    @Query('sortBy', new DefaultValuePipe("desc")) sortBy: "asc" | "desc",
   ) {
-    return this.moviesService.findAll(page, search_keyword)
+    return this.moviesService.findAll(page, search_keyword, sortBy)
   }
 }

@@ -2,7 +2,13 @@ import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { useAuth } from "@/contexts/AuthContext";
+import axios from "axios";
+import { toast } from "sonner";
+
+const apiUrl = import.meta.env.VITE_API_URL
 
 export interface LoginFormProps {
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => Promise<void>;
@@ -12,7 +18,42 @@ export interface LoginFormProps {
   setPassword: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export function LoginForm({ handleSubmit, email, setEmail, password, setPassword }: React.FC<LoginFormProps>) {
+export function LoginForm() {
+  const [email, setEmail] = useState<string>('');
+    const [password, setPassword] = useState<string>('');
+  const { login } = useAuth();
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
+    e.preventDefault();
+    try {
+      // const res = await axios.post(`${import.meta.env.VITE_API_URL}/auth/login`, { email, password });
+      // const token = res.data.token;
+      // await login(token);
+      // toast.success("Vous êtes connecté !")
+      // navigate('/home');
+
+      const promise = axios.post(`${apiUrl}/auth/login`, { email, password });
+      
+      await toast.promise(promise,{
+        loading: 'Connexion en cours...',
+        success: async (res) => {
+          const token = res.data.token;
+          await login(token);
+          navigate('/home')
+          return "Connexion réussie !!"
+        },
+        error: (err) => {
+          return err.response.data.message
+        },
+      })
+
+      
+    } catch (err) {
+        toast.error("Echec d'authentification")
+    }
+  };
+  
   return (
     <form className={cn("flex flex-col gap-6")} onSubmit={handleSubmit}>
       <div className="flex flex-col items-center gap-2 text-center">

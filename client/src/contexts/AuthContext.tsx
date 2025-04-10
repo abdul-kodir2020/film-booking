@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { User } from '../types/User';
 import axios from 'axios';
+import { toast } from 'sonner';
 
 
 interface AuthContextType {
@@ -15,6 +16,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const [token, setToken] = useState<string | null>(() => localStorage.getItem('token'));
+  const [loading, setLoading] = useState<Boolean>(false)
 
   const fetchUser = async (jwt: string) => {
     try {
@@ -24,35 +26,39 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         },
       });
       setUser(res.data);
-      console.log(res.data)
     } catch (err) {
       console.error('Erreur lors de la récupération de l’utilisateur');
-      logout();
+      console.error(err);
+    //   logout();
     }
   };
 
-  const login = (jwt: string) => {
+  const login = async (jwt: string): Promise<void> => {
     localStorage.setItem('token', jwt);
     setToken(jwt);
-    fetchUser(jwt);
+    await fetchUser(jwt);
   };
 
   const logout = () => {
     localStorage.removeItem('token');
     setToken(null);
     setUser(null);
+    toast.warning("Vous êtes déconnecté ! Revenez vite !")
   };
 
-  // Appelé une seule fois au chargement
   useEffect(() => {
+    setLoading(true)
+
     if (token) {
       fetchUser(token);
     }
+    setLoading(false)
+
   }, [token]);
 
   return (
     <AuthContext.Provider value={{ user, token, login, logout }}>
-      {children}
+        {!loading ? children : "test"}
     </AuthContext.Provider>
   );
 };

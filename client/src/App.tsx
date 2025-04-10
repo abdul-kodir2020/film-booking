@@ -5,31 +5,33 @@ import ProtectedRoute from './components/ProtectedRoutes';
 import Register from './pages/Register';
 import { Toaster } from 'sonner'
 import Home from './pages/Home';
+import { ThemeProvider } from "@/components/theme-provider"
 import AuthRedirect from './components/AuthRedirect';
 
 const App = () => {
   return (
-    <AuthProvider>
-      <BrowserRouter>
-        <AuthRedirect />
-        <Routes>
-          <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login />} />
-          <Route
-            path="/home"
-            element={
-              <ProtectedRoute>
-                <Home />
-              </ProtectedRoute>
-            }
-          />
-          <Route path="*" element={<Login />} />
-        </Routes>
-      </BrowserRouter>
-      <div>
-        <Toaster richColors />
-      </div>
-    </AuthProvider>
+    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+      <AuthProvider>
+        <BrowserRouter>
+          <AuthRedirect />
+          <Routes>
+            <Route path="/register" element={<Register />} />
+            <Route path="/login" element={<Login />} />
+            <Route
+              path="/home"
+              element={
+                <ProtectedRoute>
+                  <Home />
+                </ProtectedRoute>
+              }
+            />
+          </Routes>
+        </BrowserRouter>
+        <div>
+          <Toaster richColors />
+        </div>
+      </AuthProvider>
+    </ThemeProvider>
   );
 };
 
