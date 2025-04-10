@@ -7,7 +7,6 @@ import {
     PaginationPrevious,
   } from "@/components/ui/pagination"
 
-import React from 'react'
 
 const PaginationComponent = ({page, totalPages, setPage}: {page: number, totalPages: number, setPage: (current: any) => void}) => {
     const pages = page === 1 

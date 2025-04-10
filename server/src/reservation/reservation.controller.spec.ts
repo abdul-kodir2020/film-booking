@@ -35,7 +35,7 @@ describe('ReservationController', () => {
 
   describe('create', () => {
     it('should successfully create a reservation', async () => {
-      const createReservationDto = { movieId: 1, date: '2025-04-10T12:00:00Z' };
+      const createReservationDto = { movieId: 1, date: '2025-04-10T12:00:00Z',  movieName: "test" };
       const mockReservation = {
         id: 'reservation1',
         movieId: 1,
@@ -56,7 +56,7 @@ describe('ReservationController', () => {
     });
 
     it('should throw error if reservation creation fails', async () => {
-      const createReservationDto = { movieId: 1, date: '2025-04-10T12:00:00Z' };
+      const createReservationDto = { movieId: 1, date: '2025-04-10T12:00:00Z',  movieName: "test"};
       mockReservationService.create.mockRejectedValue(new BadRequestException('Failed to create reservation'));
 
       const request = getMockRequest(mockUser);

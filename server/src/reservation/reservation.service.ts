@@ -7,9 +7,15 @@ export class ReservationService {
   constructor(private prisma: PrismaService){}
   
   async create(createReservationDto: CreateReservationDto, userId: string) {
-    const { movieId, date } = createReservationDto;
+    const { movieId, date, movieName } = createReservationDto;
 
     const reservationDate = new Date(date);
+
+    const now = new Date();
+    const fiveMinutesLater = new Date(now.getTime() + 5 * 60 * 1000);
+    if (reservationDate < fiveMinutesLater) {
+      throw new BadRequestException('La réservation doit être effectuée au moins 5 minutes à l\'avance.');
+    }
 
     const existingReservations = await this.prisma.reservation.findMany({
       where: {
@@ -35,6 +41,7 @@ export class ReservationService {
         movieId,
         date: reservationDate,
         userId,
+        movieName
       },
     });
   }

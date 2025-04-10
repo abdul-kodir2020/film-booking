@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Reservation } from '@prisma/client';
-import { IsDate, IsInt, IsUUID } from 'class-validator';
+import { IsDate, IsInt, IsString, IsUUID } from 'class-validator';
 
 export class ReservationEntity implements Reservation{
     constructor(partial: Partial<ReservationEntity>){
@@ -15,6 +15,10 @@ export class ReservationEntity implements Reservation{
     @IsInt()
     @ApiProperty()
     movieId: number;
+
+    @IsString()
+    @ApiProperty()
+    movieName: string;
 
     @IsDate()
     @ApiProperty()

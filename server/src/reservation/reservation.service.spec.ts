@@ -31,7 +31,7 @@ describe('ReservationService', () => {
 
   describe('create', () => {
     it('should create a reservation if no conflict exists', async () => {
-      const createReservationDto = { movieId: 1, date: '2025-04-10T12:00:00Z' };
+      const createReservationDto = { movieId: 1, date: '2025-04-10T12:00:00Z' ,movieName: "test"};
       const userId = 'user1';
 
       // Simuler aucune réservation existante
@@ -56,7 +56,7 @@ describe('ReservationService', () => {
     });
 
     it('should throw an error if there is a conflict within 2 hours of another reservation', async () => {
-      const createReservationDto = { movieId: 1, date: '2025-04-10T12:00:00Z' };
+      const createReservationDto = { movieId: 1, date: '2025-04-10T12:00:00Z' , movieName: "test"};
       const userId = 'user1';
 
       // Simuler une réservation existante à 1 heure avant la nouvelle

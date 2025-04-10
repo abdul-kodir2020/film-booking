@@ -1,35 +1,29 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
     Table,
     TableBody,
-    TableCaption,
     TableCell,
     TableHead,
     TableHeader,
     TableRow,
   } from "@/components/ui/table"
-import { Button } from '@/components/ui/button';
 import { format } from "date-fns"
 import { fr } from "date-fns/locale"
-import { toast } from 'sonner';
 import AlertDialogDeleteReservation from '@/components/alert-dialog-delete-reservation';
 
+import { Reservation } from '@/types/Reservation';
   
 function Reservations() {
-    const [reservations, setReservations] = useState([])
+    const [reservations, setReservations] = useState<Reservation[]>([])
     const [loading, setLoading] = useState(false)
-    const apiUrl = import.meta.env.VITE_API_URL
-    const jwt = localStorage.token;
 
-    const formatDate = (date: { date: string | number | Date; }) => {
+    const formatDate = (date: string | number | Date) => {
         return format(new Date(date), "d MMMM yyyy 'à' HH'h'mm", {
             locale: fr,
         })
     }
 
-    
-    
     useEffect(()=>{
         const fetchReservations = async (jwt: string) => {
             setLoading(true)
@@ -39,11 +33,9 @@ function Reservations() {
                   Authorization: `Bearer ${jwt}`,
                 },
               });
-              console.log(res.data)
               setReservations(res.data);
             } catch (err) {
               console.error('Erreur lors de la récupération des films');
-              console.error(err);
             }finally{
                 setLoading(false)
             }
@@ -69,10 +61,10 @@ function Reservations() {
                 <TableBody>
                     {
                         !loading &&
-                        reservations.map((reservation) => (
-                            <TableRow>
+                        reservations.map((reservation: Reservation) => (
+                            <TableRow key={reservation.id}>
                                 <TableCell className="font-medium">{reservation.id}</TableCell>
-                                <TableCell>{formatDate(reservation.date)}</TableCell>
+                                <TableCell>{formatDate((reservation.date))}</TableCell>
                                 <TableCell>{formatDate(reservation.createdAt)}</TableCell>
                                 <TableCell className="text-right">
                                     <AlertDialogDeleteReservation setReservations={setReservations} reservation={reservation.id}/>

@@ -8,8 +8,7 @@ import {
   } from "@/components/ui/dialog"
 import { Eye } from "lucide-react"
 import { DateTimePicker24h } from "./date-time-picker"
-import { MouseEvent, useState } from "react";
-import { Button } from "react-day-picker";
+import { useState } from "react";
 import { toast } from "sonner";
 import axios from "axios";
   
@@ -36,7 +35,7 @@ const FilmDialog = ({film} : {film: any}) => {
 
             await toast.promise(promise,{
                 loading: 'Reservation en cours...',
-                success: async (res) => {
+                success: async () => {
                     return "Reservation réussie !!"
                 },
                 error: (err) => {

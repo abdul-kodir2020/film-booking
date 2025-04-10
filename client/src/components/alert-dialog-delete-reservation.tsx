@@ -3,7 +3,6 @@ import {
     AlertDialogAction,
     AlertDialogCancel,
     AlertDialogContent,
-    AlertDialogDescription,
     AlertDialogFooter,
     AlertDialogHeader,
     AlertDialogTitle,
@@ -11,7 +10,6 @@ import {
   } from "@/components/ui/alert-dialog"
 import axios from "axios";
 
-import React from 'react'
 import { toast } from "sonner";
 
 const AlertDialogDeleteReservation = ({reservation, setReservations} : {reservation: any, setReservations: (tab: any) => void}) => {

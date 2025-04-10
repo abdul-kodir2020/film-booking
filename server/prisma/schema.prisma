@@ -28,6 +28,7 @@ model Reservation {
   userId    String
   user      User               @relation(fields: [userId], references: [id])
   movieId   Int                
+  movieName   String           @default("")
   date      DateTime
   createdAt DateTime           @default(now())
   updatedAt DateTime           @updatedAt

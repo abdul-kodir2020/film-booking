@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
     Select,
     SelectContent,
@@ -12,10 +12,12 @@ import { Badge } from '@/components/ui/badge'
 import PaginationComponent from '@/components/pagination'
 import FilmDialog from '@/components/film-dialog'
 
+import { Film } from '@/types/Film'
+
 const Decouvrir = () => {
     const [selectedOption, setSelectedOption] = useState('desc')
     const [keyWord, setKeyword] = useState('')
-    const [films, setFilms] = useState([])
+    const [films, setFilms] = useState<Film[]>([]) 
     const [loading, setLoading] = useState(false)
     const [page, setPage] = useState(1)
     const [totalPages, setTotalPages] = useState(1)
@@ -37,12 +39,10 @@ const Decouvrir = () => {
                 },
                 params: params
               });
-              console.log(res.data)
               setTotalPages(res.data.tota_pages)
               setFilms(res.data.results);
             } catch (err) {
               console.error('Erreur lors de la récupération des films');
-              console.error(err);
             }finally{
                 setLoading(false)
             }
@@ -57,7 +57,6 @@ const Decouvrir = () => {
         <hr></hr>
         <div className='flex items-center justify-between mt-4'>
             <div className=''>
-                {/* <h2 className="mt-4 text-md text-gray-300">Ordre d'affichage (par popularité)</h2> */}
                 <Select onValueChange={(value) => setSelectedOption(value)} defaultValue={selectedOption}>
                     <SelectTrigger className="w-[200px] text-foreground">
                         <SelectValue />
@@ -108,7 +107,10 @@ const Decouvrir = () => {
             }
         </div>
         <div className='my-3 flex items-center'>
-            {/* <PaginationComponent /> */}
+            {
+                !loading &&
+                <PaginationComponent page={page} totalPages={totalPages} setPage={setPage}/>
+            }
         </div>
     </div>
   )
