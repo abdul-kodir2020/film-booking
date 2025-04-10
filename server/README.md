@@ -43,7 +43,7 @@ Développeur Fullstack & DevOps
 ### 1. Cloner le repo
 
 ```bash
-git clone https://github.com/ton-user/film-booking-api.git
+git clone [https://github.com/ton-user/film-booking-api.git](https://github.com/abdul-kodir2020/film-booking.git)
 cd film-booking-api/server
 ```
 
