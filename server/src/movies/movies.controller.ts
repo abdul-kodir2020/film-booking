@@ -3,7 +3,7 @@ import { MoviesService } from './movies.service';
 import { HttpService } from '@nestjs/axios';
 import { ApiBearerAuth, ApiOkResponse, ApiQuery } from '@nestjs/swagger';
 import { PaginatedMoviesResponse } from './entities/movie.entity';
-import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
 @Controller('movies')
 export class MoviesController {
