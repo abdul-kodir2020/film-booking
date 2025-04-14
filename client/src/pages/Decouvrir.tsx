@@ -39,7 +39,7 @@ const Decouvrir = () => {
                 },
                 params: params
               });
-              setTotalPages(res.data.tota_pages)
+              setTotalPages(res.data.total_pages)
               setFilms(res.data.results);
             } catch (err) {
               console.error('Erreur lors de la récupération des films');
@@ -55,7 +55,7 @@ const Decouvrir = () => {
     <div>
         <h1 className="mb-5 text-xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-4xl dark:text-white">Découvrez tous les  <span className="underline underline-offset-3 decoration-8 decoration-blue-400 dark:decoration-blue-600">films disponibles</span></h1>
         <hr></hr>
-        <div className='flex items-center justify-between mt-4'>
+        <div className='flex items-start md:items-center justify-between mt-4 flex-col gap-1 md:flex-row'>
             <div className=''>
                 <Select onValueChange={(value) => setSelectedOption(value)} defaultValue={selectedOption}>
                     <SelectTrigger className="w-[200px] text-foreground">
@@ -67,9 +67,9 @@ const Decouvrir = () => {
                     </SelectContent>
                 </Select>
             </div>
-            <PaginationComponent page={page} totalPages={totalPages} setPage={setPage}/>
+            <PaginationComponent page={page} totalPages={totalPages} setPage={setPage} className={"hidden lg:flex"}/>
 
-            <div className="relative w-100">
+            <div className="relative w-full md:w-95">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="absolute top-0 bottom-0 w-6 h-6 my-auto text-gray-500 left-3"
@@ -92,7 +92,7 @@ const Decouvrir = () => {
             {
                 !loading?
                     films?.map((film)=>(
-                        <div className='bg-white rounded group/item relative cursor-pointer'>
+                        <div className='bg-white rounded group/item relative cursor-pointer' key={film.id}>
                             <img className='object-cover size-full' src={"https://image.tmdb.org/t/p/original/"+film.poster_path}></img>
                             <div className='flex items-center justify-center size-full bg-black/40 absolute top-0 left-0 group/edit invisible group-hover/item:visible group-hover/edit:translate-x-0.5'>
                                 <FilmDialog film={film}/>
@@ -102,14 +102,14 @@ const Decouvrir = () => {
                     ))
                 :
                     <div>
-                        loading
+                        Chargement...
                     </div>
             }
         </div>
         <div className='my-3 flex items-center'>
             {
                 !loading &&
-                <PaginationComponent page={page} totalPages={totalPages} setPage={setPage}/>
+                <PaginationComponent page={page} totalPages={totalPages} setPage={setPage} className={""}/>
             }
         </div>
     </div>

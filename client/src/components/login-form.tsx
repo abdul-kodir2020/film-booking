@@ -20,37 +20,34 @@ export interface LoginFormProps {
 
 export function LoginForm() {
   const [email, setEmail] = useState<string>('');
-    const [password, setPassword] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const [loading, setLoading] = useState<boolean>(false)
   const { login } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
     try {
-      // const res = await axios.post(`${import.meta.env.VITE_API_URL}/auth/login`, { email, password });
-      // const token = res.data.token;
-      // await login(token);
-      // toast.success("Vous êtes connecté !")
-      // navigate('/home');
 
       const promise = axios.post(`${apiUrl}/auth/login`, { email, password });
-      
+      setLoading(true)
       await toast.promise(promise,{
         loading: 'Connexion en cours...',
         success: async (res) => {
           const token = res.data.token;
           await login(token);
           navigate('/home')
+          setLoading(false)
           return "Connexion réussie !!"
         },
         error: (err) => {
+          setLoading(false)
           return err.response.data.message
         },
       })
-
-      
     } catch (err) {
         toast.error("Echec d'authentification")
+        setLoading(false)
     }
   };
   
@@ -79,7 +76,7 @@ export function LoginForm() {
           </div>
           <Input id="password" type="password" value={password} onChange={e => setPassword(e.target.value)} required />
         </div>
-        <Button type="submit" className="w-full cursor-pointer">
+        <Button type="submit" className="w-full cursor-pointer" disabled={loading}>
           Se connecter
         </Button>
         <div className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">

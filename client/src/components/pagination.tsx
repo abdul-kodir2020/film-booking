@@ -8,12 +8,18 @@ import {
   } from "@/components/ui/pagination"
 
 
-const PaginationComponent = ({page, totalPages, setPage}: {page: number, totalPages: number, setPage: (current: any) => void}) => {
+const PaginationComponent = ({page, totalPages, setPage, className}: {page: number, totalPages: number, setPage: (current: any) => void, className: string}) => {
     const pages = page === 1 
             ? [1, 2, 3] 
             : page === totalPages ? [page - 2, page - 1, page] : [page - 1, page, page + 1]
+
+  // const returnPages = (page: number, total_pages: number) => {
+  //   if(totalPages < 4) return [...Array(total_pages).keys()].map(i => i + 1)
+
+    
+  // } 
   return (
-    <Pagination>
+    <Pagination className={className}>
       <PaginationContent>
         <PaginationItem className="cursor-pointer">
           <PaginationPrevious className="cursor-pointer" type="button" onClick={() => {if(page > 1) setPage((current: number) => current - 1)}} />
@@ -26,7 +32,7 @@ const PaginationComponent = ({page, totalPages, setPage}: {page: number, totalPa
             ))
         }
         <PaginationItem className="cursor-pointer">
-          <PaginationNext type="button"  onClick={() => {if(page < totalPages) setPage((current: number) => current + 1)}} />
+          <PaginationNext type="button" onClick={() => {if(page < totalPages) setPage((current: number) => current + 1)}}/>
         </PaginationItem>
       </PaginationContent>
     </Pagination>

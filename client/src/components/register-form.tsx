@@ -12,42 +12,33 @@ export function RegisterForm() {
     const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState<boolean>(false)
   const navigate = useNavigate();
 
   const apiUrl = import.meta.env.VITE_API_URL
-
-//   const handleSubmit = async (e: React.FormEvent) => {
-//     e.preventDefault();
-//     setLoading(true);
-//     try {
-//       await axios.post(`${apiUrl}/auth/register`, { name, email, password });
-//       toast.success("Inscription réussie !")
-//       navigate('/login');
-//     } catch (err) {
-//       toast.error("Erreur lors de l’inscription.")
-//     } finally {
-//       setLoading(false);
-//     }
-//   };
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
         try {
             const promise = axios.post(`${apiUrl}/auth/register`, { name, email, password });
+            setLoading(true)
 
             toast.promise(promise, {
                 loading: 'Inscription en cours...',
                 success: (res) => {
                     navigate('/login')
+                    setLoading(false)
                     return `${res.data.user.name} a été inscrit avec succès`
                 },
                 error: (err) => {
+                    setLoading(false)
                     return err.response.data.message
                 },
             });
 
         } catch (err) {
+            setLoading(false)
             toast.error(" lors de l’inscription.");
         }
     };
@@ -75,7 +66,7 @@ export function RegisterForm() {
           </div>
           <Input id="password" type="password" value={password} onChange={e => setPassword(e.target.value)} required />
         </div>
-        <Button type="submit" className="w-full cursor-pointer">
+        <Button type="submit" className="w-full cursor-pointer" disabled={loading}>
           Créez
         </Button>
         <div className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
