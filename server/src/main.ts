@@ -8,7 +8,8 @@ async function bootstrap() {
   app.enableCors();
   app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
   app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
-
+  app.setGlobalPrefix('api')
+  
   const config = new DocumentBuilder()
     .setTitle('Film Booking')
     .setDescription('The film booking API description')

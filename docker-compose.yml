@@ -2,14 +2,14 @@ services:
   frontend:
     build:
       context: ./client
+      args: 
+        - VITE_API_BASE=/film-booking/
+        - VITE_API_URL=api
     image: monapp-frontend
-    #ports:
-    #  - "80:80"
+    ports:
+      - "80:3000"
     depends_on:
       - backend
-    environment:
-      - VITE_API_BASE=/film-booking/
-      - VITE_API_URL=http://backend:3000
     networks:
       - proxy-net
 
@@ -21,9 +21,7 @@ services:
     #  - "3000:3000"
     depends_on:
       - db
-    environment:
-      - DATABASE_URL=postgresql://postgres:postgres@db:5432/mydb
-      - JWT_SECRET=sfhbkjhrfbser
+    env_file: "./server/.env"
     networks:
       - proxy-net
   db:
@@ -35,8 +33,8 @@ services:
       POSTGRES_DB: mydb
     volumes:
       - pgdata:/var/lib/postgresql/data
-    #ports:
-    #  - "5432:5432"
+#    ports:
+#      - "5432:5432"
     networks:
       - proxy-net
 

@@ -14,7 +14,7 @@ const App = () => {
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
       <AuthProvider>
-        <BrowserRouter>
+        <BrowserRouter basename={import.meta.env.VITE_API_BASE || ""}>
           <AuthRedirect />
           <Routes>
             <Route path="/register" element={<Register />} />
