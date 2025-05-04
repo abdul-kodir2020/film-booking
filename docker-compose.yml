@@ -2,16 +2,24 @@ services:
   frontend:
     build:
       context: ./client
-      args: 
-        - VITE_API_BASE=/film-booking/
-        - VITE_API_URL=api
     image: monapp-frontend
-    ports:
-      - "80:3000"
+    #ports:
+    #  - "80:80"
     depends_on:
       - backend
+    environment:
+      - VITE_API_BASE=/film-booking/
+      - VITE_API_URL=http://backend:3000
+    labels:
+       - "traefik.enable=true"
+#       - "traefik.http.routers.frontend.rule=Host(`srvdkpocprod.franceagrimer.fr`)"
+       - "traefik.http.routers.frontend.rule=PathPrefix(`/film-booking`)"
+       - "traefik.http.routers.frontend.middlewares=frontend-middle"
+       - "traefik.http.middlewares.frontend-middle.stripprefix.prefixes=/film-booking"
+#       - "traefik.http.routers.frontend.entrypoints=websecure"
+       - "traefik.http.services.frontend.loadbalancer.server.port=3000"
     networks:
-      - proxy-net
+      - traefik-network
 
   backend:
     build:
@@ -21,9 +29,11 @@ services:
     #  - "3000:3000"
     depends_on:
       - db
-    env_file: "./server/.env"
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/mydb
+      - JWT_SECRET=sfhbkjhrfbser
     networks:
-      - proxy-net
+      - traefik-network
   db:
     image: postgres:15
     restart: always
@@ -33,15 +43,15 @@ services:
       POSTGRES_DB: mydb
     volumes:
       - pgdata:/var/lib/postgresql/data
-#    ports:
-#      - "5432:5432"
+    #ports:
+    #  - "5432:5432"
     networks:
-      - proxy-net
+      - traefik-network
 
 volumes:
   pgdata:
 
 networks:
-  proxy-net:
-    name: proxy-net
+  traefik-network:
+    name: traefik-network
     external: true
