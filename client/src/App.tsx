@@ -22,9 +22,9 @@ const App = () => {
             <Route
               path="/home"
               element={
-                <ProtectedRoute>
+                //<ProtectedRoute>
                   <Home />
-                </ProtectedRoute>
+                //</ProtectedRoute>
               }
             >
               {/* Redirection par défaut vers /home/decouvrir */}
